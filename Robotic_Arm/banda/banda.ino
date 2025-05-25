@@ -4,13 +4,15 @@
 // Motor 1 (pini: 2 digital, 3 PWM)
 // Motor 2 (pini: 4 digital, 5 PWM)
 // Motor 3 (pini: 10 PWM, 11 digital)
-
-const int M1_PIN_DIR = 3;
-const int M1_PIN_PWM = 2;
-const int M2_PIN_DIR = 5;
-const int M2_PIN_PWM = 4;
-const int M3_PIN_PWM = 10;
-const int M3_PIN_DIR = 11;
+//2,4
+//7,8
+//12,13
+const int M1_PIN_DIR = 12;
+const int M1_PIN_PWM = 13;
+const int M2_PIN_DIR = 7;
+const int M2_PIN_PWM = 8;
+const int M3_PIN_PWM = 2;
+const int M3_PIN_DIR = 3;
 
 void setup() {
   // Configurare pini ca OUTPUT

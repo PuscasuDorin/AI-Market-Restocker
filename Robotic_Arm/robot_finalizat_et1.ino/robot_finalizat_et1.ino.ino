@@ -104,10 +104,10 @@ void setup() {
   Braccio.begin();
   delay(500);
 
-  // Pregătire
+  // Pregătire (se duce la banda)
   Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 0);
   delay(1000);
-  // Prindere
+  // Prindere (prinde cubu)
   Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 73);
   delay(1000);
 
@@ -135,7 +135,8 @@ void setup() {
   }
 
   delay(1000);
-  Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10);
+  //Merge in locatia safe
+  Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
   delay(1000);
 
   Serial.println("Sortare finalizată.");
