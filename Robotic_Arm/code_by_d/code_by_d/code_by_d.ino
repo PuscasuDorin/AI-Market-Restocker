@@ -15,13 +15,10 @@ Servo gripper;
 
 char culoare = ' ';
 bool motor_sel = true;
-int done = 0;
+int done = 1;
 
 const int M1_PIN_DIR = 7;
-//const int M1_PIN_PWM = 4;
 const int M2_PIN_DIR = 4;
-//const int M2_PIN_PWM = 8;
-//const int M3_PIN_PWM = 13;
 const int M3_PIN_DIR = 2;
 
 void setup() {
@@ -45,11 +42,8 @@ void setup() {
   delay(500);
 
   pinMode(M1_PIN_DIR, OUTPUT);
-  //pinMode(M1_PIN_PWM, OUTPUT);
   pinMode(M2_PIN_DIR, OUTPUT);
-  //pinMode(M2_PIN_PWM, OUTPUT);
   pinMode(M3_PIN_DIR, OUTPUT);
-  //pinMode(M3_PIN_PWM, OUTPUT);
 }
 
 void loop() {
@@ -59,52 +53,38 @@ void loop() {
     Serial.print("Connected to central: ");
     Serial.println(central.address());
 
-        //Run MOT2
-   // analogWrite(M2_PIN_PWM, 50);  // viteză ~50%
-    digitalWrite(M2_PIN_DIR, HIGH);
-    delay(500);
-    //Stop MOT2
-    digitalWrite(M2_PIN_DIR, LOW);
-    delay(100);
 
-    //Run MOT1
-    //analogWrite(M1_PIN_PWM, 100);  // viteză 100%
-    digitalWrite(M1_PIN_DIR, HIGH);
-    delay(10000); 
+    //delay(10000);
 
     while (central.connected()) {
       if(done == 1){
         if(motor_sel == false) {
         //Run MOT2
-        //analogWrite(M2_PIN_PWM, 50);  // viteză ~50%
-        digitalWrite(M2_PIN_DIR, HIGH);
+        analogWrite(M2_PIN_DIR, 50);
         delay(500);
         //Stop MOT2
-        digitalWrite(M2_PIN_DIR, LOW);
+        analogWrite(M2_PIN_DIR, 0);
         delay(100);
         }
         if(motor_sel == true ) {
           //Run MOT3
-          //analogWrite(M3_PIN_PWM, 50);  // viteză ~50%
-          digitalWrite(M3_PIN_DIR, HIGH);
+          analogWrite(M3_PIN_DIR, 50);
           delay(500); 
           //Stop MOT3
-          digitalWrite(M3_PIN_DIR, LOW);
+          analogWrite(M3_PIN_DIR, 0);
           delay(100);
-          motor_sel = !motor_sel;
         }
         //Run MOT1
-        //analogWrite(M1_PIN_PWM, 100);  // viteză 100%
         digitalWrite(M1_PIN_DIR, HIGH);
         delay(10000); 
         done = 0;
+        //Stop MOT1
+        digitalWrite(M1_PIN_DIR, LOW);
+        delay(100);
       }
        
 
       if (rxCharacteristic.written()) {
-        //Stop MOT1
-        digitalWrite(M1_PIN_DIR, LOW);
-        delay(100);
         
         const uint8_t* data = rxCharacteristic.value();
         int len = rxCharacteristic.valueLength();
@@ -199,6 +179,7 @@ void loop() {
             done = 1;
         }
         Serial.print(done);
+        motor_sel = !motor_sel;
         BLE.central();
       }
     }
