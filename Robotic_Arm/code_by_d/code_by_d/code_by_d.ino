@@ -76,7 +76,7 @@ void loop() {
         }
         //Run MOT1
         digitalWrite(M1_PIN_DIR, HIGH);
-        delay(10000); 
+        delay(5500); 
         done = 0;
         //Stop MOT1
         digitalWrite(M1_PIN_DIR, LOW);
@@ -95,16 +95,16 @@ void loop() {
         culoare = message;
         if (culoare == 'R') {
           // Pregătire (se duce la banda)
-          Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 0);
+          Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
           delay(1000);
           // Prindere (prinde cubu)
-          Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 73);
+          Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
           delay(1000);
           // Merge la Locatie
-          Braccio.ServoMovement(100, 165, 180, 140, 120, 170, 73);
+          Braccio.ServoMovement(100, 110, 140, 140, 100, 170, 73);
           delay(1000);
           // Da drumu la clesti
-          Braccio.ServoMovement(100, 165, 180, 140, 120, 170, 0);
+          Braccio.ServoMovement(100, 110, 140, 140, 100, 170, 0);
           delay(1000);
           //Merge in locatia safe
           Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
@@ -112,15 +112,15 @@ void loop() {
           done = 1;
         } else if (culoare == 'G') {
             // Pregătire (se duce la banda)
-            Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 0);
+            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
             delay(1000);
             // Prindere (prinde cubu)
-            Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 73);
+            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
             delay(1000);
             // Merge la Locatie
-            Braccio.ServoMovement(100, 155, 180, 120, 175, 170, 73);
+            Braccio.ServoMovement(100, 95, 140, 120, 175, 170, 73);
             delay(1000);
-            Braccio.ServoMovement(100, 155, 180, 120, 175, 170, 0);
+            Braccio.ServoMovement(100, 95, 140, 120, 175, 170, 0);
             delay(1000);
             //Merge in locatia safe
             Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
@@ -128,10 +128,10 @@ void loop() {
             done = 1;
         } else if (culoare == 'B') {
             // Pregătire (se duce la banda)
-            Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 0);
+            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
             delay(1000);
             // Prindere (prinde cubu)
-            Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 73);
+            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
             delay(1000);
             // Merge la Locatie
             Braccio.ServoMovement(100, 140, 130, 140, 180, 170, 73);
@@ -145,16 +145,16 @@ void loop() {
             done = 1;
         } else if (culoare == 'Y') {
             // Pregătire (se duce la banda)
-            Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 0);
+            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
             delay(1000);
             // Prindere (prinde cubu)
-            Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 73);
+            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
             delay(1000);
             // Merge la Locatie
-            Braccio.ServoMovement(100, 120, 110, 170, 180, 170, 73);
+            Braccio.ServoMovement(100, 67, 140, 120, 175, 170, 73);
             delay(1000);
             // Da drumu la clesti
-            Braccio.ServoMovement(100, 120, 110, 170, 180, 170, 0);
+            Braccio.ServoMovement(100, 67, 140, 120, 175, 170, 0);
             delay(1000);
             //Merge in locatia safe
             Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
@@ -162,16 +162,16 @@ void loop() {
             done = 1;
         } else if (culoare == 'O') {
             // Pregătire (se duce la banda)
-            Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 0);
+            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
             delay(1000);
             // Prindere (prinde cubu)
-            Braccio.ServoMovement(100, 70, 45, 10, 130, 170, 73);
+            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
             delay(1000);
             // Merge la Locatie
-            Braccio.ServoMovement(100, 95, 110, 170, 180, 170, 73);
+            Braccio.ServoMovement(100, 50, 140, 120, 165, 170, 73);
             delay(1000);
             // Da drumu la clesti
-            Braccio.ServoMovement(100, 95, 110, 170, 180, 170, 0);
+            Braccio.ServoMovement(100, 50, 140, 120, 165, 170, 0);
             delay(1000);
             //Merge in locatia safe
             Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
