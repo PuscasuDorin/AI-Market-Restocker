@@ -22,6 +22,7 @@ const int M2_PIN_DIR = 4;
 const int M3_PIN_DIR = 2;
 
 void setup() {
+
   Serial.begin(9600);
   while (!Serial);
 
@@ -43,7 +44,7 @@ void setup() {
 
   pinMode(M1_PIN_DIR, OUTPUT);
   pinMode(M2_PIN_DIR, OUTPUT);
-  pinMode(M3_PIN_DIR, OUTPUT);
+  pinMode(M3_PIN_DIR, OUTPUT); 
 }
 
 void loop() {
@@ -57,11 +58,12 @@ void loop() {
     //delay(10000);
 
     while (central.connected()) {
+       Serial.print (base.read());
       if(done == 1){
         if(motor_sel == false) {
         //Run MOT2
         analogWrite(M2_PIN_DIR, 50);
-        delay(500);
+        delay(1500);
         //Stop MOT2
         analogWrite(M2_PIN_DIR, 0);
         delay(100);
@@ -69,14 +71,14 @@ void loop() {
         if(motor_sel == true ) {
           //Run MOT3
           analogWrite(M3_PIN_DIR, 50);
-          delay(500); 
+          delay(1000); 
           //Stop MOT3
           analogWrite(M3_PIN_DIR, 0);
           delay(100);
         }
         //Run MOT1
         digitalWrite(M1_PIN_DIR, HIGH);
-        delay(5500); 
+        delay(5700); 
         done = 0;
         //Stop MOT1
         digitalWrite(M1_PIN_DIR, LOW);
@@ -93,91 +95,69 @@ void loop() {
         Serial.print("Received via BLE: ");
         Serial.println(message);
         culoare = message;
-        if (culoare == 'R') {
-          // Pregătire (se duce la banda)
-          Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
-          delay(1000);
-          // Prindere (prinde cubu)
-          Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
-          delay(1000);
-          // Merge la Locatie
-          Braccio.ServoMovement(100, 110, 140, 140, 100, 170, 73);
-          delay(1000);
-          // Da drumu la clesti
-          Braccio.ServoMovement(100, 110, 140, 140, 100, 170, 0);
-          delay(1000);
-          //Merge in locatia safe
-          Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
-          delay(1000);
-          done = 1;
-        } else if (culoare == 'G') {
-            // Pregătire (se duce la banda)
-            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
-            delay(1000);
-            // Prindere (prinde cubu)
-            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
-            delay(1000);
-            // Merge la Locatie
-            Braccio.ServoMovement(100, 95, 140, 120, 175, 170, 73);
-            delay(1000);
-            Braccio.ServoMovement(100, 95, 140, 120, 175, 170, 0);
-            delay(1000);
-            //Merge in locatia safe
-            Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
-            delay(1000);
-            done = 1;
-        } else if (culoare == 'B') {
-            // Pregătire (se duce la banda)
-            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
-            delay(1000);
-            // Prindere (prinde cubu)
-            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
-            delay(1000);
-            // Merge la Locatie
-            Braccio.ServoMovement(100, 140, 130, 140, 180, 170, 73);
-            delay(1000);
-            // Da drumu la clesti
-            Braccio.ServoMovement(100, 140, 130, 140, 180, 170, 0);
-            delay(1000);
-            //Merge in locatia safe
-            Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
-            delay(1000);
-            done = 1;
-        } else if (culoare == 'Y') {
-            // Pregătire (se duce la banda)
-            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
-            delay(1000);
-            // Prindere (prinde cubu)
-            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
-            delay(1000);
-            // Merge la Locatie
-            Braccio.ServoMovement(100, 67, 140, 120, 175, 170, 73);
-            delay(1000);
-            // Da drumu la clesti
-            Braccio.ServoMovement(100, 67, 140, 120, 175, 170, 0);
-            delay(1000);
-            //Merge in locatia safe
-            Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
-            delay(1000);
-            done = 1;
-        } else if (culoare == 'O') {
-            // Pregătire (se duce la banda)
-            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 0);
-            delay(1000);
-            // Prindere (prinde cubu)
-            Braccio.ServoMovement(100, 60, 45, 10, 130, 170, 73);
-            delay(1000);
-            // Merge la Locatie
-            Braccio.ServoMovement(100, 50, 140, 120, 165, 170, 73);
-            delay(1000);
-            // Da drumu la clesti
-            Braccio.ServoMovement(100, 50, 140, 120, 165, 170, 0);
-            delay(1000);
-            //Merge in locatia safe
-            Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10); 
-            delay(1000);
-            done = 1;
-        }
+        
+      if (culoare == 'R') {
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 10);
+        delay(1000);
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
+        delay(1000);
+        Braccio.ServoMovement(100, 125, 140, 140, 100, 170, 70);
+        delay(500);
+        Braccio.ServoMovement(100, 125, 140, 140, 100, 170, 10);
+        delay(500);
+        Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10);
+        delay(500);
+        done = 1;
+      } else if (culoare == 'G') {
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 10);
+        delay(1000);
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
+        delay(1000);
+        Braccio.ServoMovement(100, 110, 140, 120, 175, 170, 70);
+        delay(500);
+        Braccio.ServoMovement(100, 110, 140, 120, 175, 170, 10);
+        delay(500);
+        Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10);
+        delay(500);
+        done = 1;
+      } else if (culoare == 'B') {
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 0);
+        delay(1000);
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
+        delay(1000);
+        Braccio.ServoMovement(100, 83, 130, 140, 180, 170, 70);
+        delay(500);
+        Braccio.ServoMovement(100, 83, 130, 140, 180, 170, 10);
+        delay(500);
+        Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10);
+        delay(500);
+        done = 1;
+      } else if (culoare == 'Y') {
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 10);
+        delay(1000);
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
+        delay(1000);
+        Braccio.ServoMovement(100, 62, 140, 120, 175, 170, 70);
+        delay(500);
+        Braccio.ServoMovement(100, 62, 140, 120, 175, 170, 10);
+        delay(500);
+        Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10);
+        delay(500);
+        done = 1;
+      } else if (culoare == 'O') {
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 10);
+        delay(1000);
+        Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
+        delay(1000);
+        Braccio.ServoMovement(100, 45, 140, 120, 165, 170, 70);
+        delay(500);
+        Braccio.ServoMovement(100, 45, 140, 120, 165, 170, 10);
+        delay(500);
+        Braccio.ServoMovement(100, 0, 45, 180, 0, 90, 10);
+        delay(500);
+        done = 1;
+    }
+
         Serial.print(done);
         motor_sel = !motor_sel;
         BLE.central();
