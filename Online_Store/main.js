@@ -70,24 +70,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const stockSpan  = document.getElementById(`stock-${id}`);
 
     // Inițializează produsul în cart dacă nu există
-    if (!cart[id]) {
-      cart[id] = {
-        name: name,
-        price: price,
-        quantity: 0
-      };
+    if(parseInt(stockSpan.textContent) > 0 ){
+      if (!cart[id]) {
+        cart[id] = {
+          name: name,
+          price: price,
+          quantity: 0
+        };
+      }
+
+      // Incrementăm cantitatea în coș
+      cart[id].quantity += 1;
+
+      // Actualizăm și stocul din pagina principală (crescut cu 1)
+      let currentStock = parseInt(stockSpan.textContent, 10);
+      currentStock -= 1;
+      stockSpan.textContent = currentStock;
+
+      // Re-afișăm coșul și totalul
+      updateCartDisplay();
     }
-
-    // Incrementăm cantitatea în coș
-    cart[id].quantity += 1;
-
-    // Actualizăm și stocul din pagina principală (crescut cu 1)
-    let currentStock = parseInt(stockSpan.textContent, 10);
-    currentStock -= 1;
-    stockSpan.textContent = currentStock;
-
-    // Re-afișăm coșul și totalul
-    updateCartDisplay();
   }
 
   // Funcție care se ocupă de ștergerea unui singur produs din coș
@@ -102,10 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
       cart[id].quantity -= 1;
 
       // Decrementăm și afișajul stocului (scade cu 1)
-      let currentStock = parseInt(stockSpan.textContent, 10);
-      currentStock = Math.max(0, currentStock - 1);
-      stockSpan.textContent = currentStock;
-
+        let currentStock = parseInt(stockSpan.textContent, 10);
+        currentStock = Math.max(0, currentStock + 1);
+        stockSpan.textContent = currentStock;
       // Dacă după decrementare cantitatea din cart e 0, îl eliminăm complet
       if (cart[id].quantity === 0) {
         delete cart[id];
@@ -121,9 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pentru fiecare produs din cart, resetăm stocul afișat la zero
     for (let id in cart) {
       const stockSpan = document.getElementById(`stock-${id}`);
-      if (stockSpan) {
-        stockSpan.textContent = '0';
-      }
     }
     // Golește obiectul cart
     cart = {};
