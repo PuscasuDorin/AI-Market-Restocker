@@ -5,11 +5,45 @@ from bluepy import btle
 from gpiozero import Button
 import time
 
+import json
+
 #Bluetooth
 DEVICE_MAC = "F4:12:FA:70:AA:C5"
 SERVICE_UUID = "180C"
 CHAR_UUID = "2A56"
 message = ""
+stock = [0, 0, 0, 0, 0]
+
+#def update_item(stock, price, name):
+#    data = {
+#        "stock": int(stock),
+#        "price": float(price),
+#        "name": name
+#    }
+
+#    with open('stockdata.json', 'w') as f:
+#        json.dump(data, f, indent=2)
+
+ #   print("Item data updated!")
+
+def update_stock(item_id, new_stock):
+    # Citim datele din fisier
+    with open('stockdata.json', 'r') as f:
+        data = json.load(f)
+
+    # Căutăm produsul după id și actualizăm stocul
+    for item in data:
+        if item['id'] == item_id:
+            item['stock'] = int(new_stock)
+            break
+    else:
+        print(f"Produs cu id {item_id} nu a fost găsit.")
+
+    # Scriem datele actualizate înapoi în fisier
+    with open('stockdata.json', 'w') as f:
+        json.dump(data, f, indent=2)
+
+    print(f"Stoc actualizat pentru produsul cu id {item_id} la {new_stock}.")
 
 # Camera setup
 picam2 = Picamera2()
@@ -58,14 +92,29 @@ while True:
             message = labels[0]
             if message == "Red":
                 message = 'R'
+                stock[0] += 1
+                if __name__ == "__main__":
+                    update_stock(1,stock[0])
             elif message == "Green":
                 message = 'G'
+                stock[1] += 1
+                if __name__ == "__main__":
+                    update_stock(3,stock[1])
             elif message == "Yellow":
                 message = 'Y'
+                stock[2] += 1
+                if __name__ == "__main__":
+                    update_stock(5,stock[2])
             elif message == "Blue":
                 message = 'B'
+                stock[3] += 1
+                if __name__ == "__main__":
+                    update_stock(2,stock[3])
             elif message == "Orange":
                 message = 'O'
+                stock[4] += 1
+                if __name__ == "__main__":
+                    update_stock(4,stock[4])
             print(f"Sending message: {message}")
             characteristic.write(message.encode(), withResponse=True)
             time.sleep(2)
