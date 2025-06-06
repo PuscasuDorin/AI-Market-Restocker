@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Actualizăm și stocul din pagina principală (crescut cu 1)
     let currentStock = parseInt(stockSpan.textContent, 10);
-    currentStock += 1;
+    currentStock -= 1;
     stockSpan.textContent = currentStock;
 
     // Re-afișăm coșul și totalul
