@@ -14,24 +14,12 @@ CHAR_UUID = "2A56"
 message = ""
 stock = [0, 0, 0, 0, 0]
 
-#def update_item(stock, price, name):
-#    data = {
-#        "stock": int(stock),
-#        "price": float(price),
-#        "name": name
-#    }
-
-#    with open('stockdata.json', 'w') as f:
-#        json.dump(data, f, indent=2)
-
- #   print("Item data updated!")
-
 def update_stock(item_id, new_stock):
-    # Citim datele din fisier
+    # Read data from the database
     with open('Online_Store/stockdata.json', 'r') as f:
         data = json.load(f)
 
-    # Căutăm produsul după id și actualizăm stocul
+    # Find the item by id
     for item in data:
         if item['id'] == item_id:
             item['stock'] = int(new_stock)
@@ -39,7 +27,7 @@ def update_stock(item_id, new_stock):
     else:
         print(f"Produs cu id {item_id} nu a fost găsit.")
 
-    # Scriem datele actualizate înapoi în fisier
+    # Write data to database
     with open('Online_Store/stockdata.json', 'w') as f:
         json.dump(data, f, indent=2)
 
