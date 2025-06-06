@@ -28,7 +28,7 @@ stock = [0, 0, 0, 0, 0]
 
 def update_stock(item_id, new_stock):
     # Citim datele din fisier
-    with open('stockdata.json', 'r') as f:
+    with open('Online_Store/stockdata.json', 'r') as f:
         data = json.load(f)
 
     # Căutăm produsul după id și actualizăm stocul
@@ -40,7 +40,7 @@ def update_stock(item_id, new_stock):
         print(f"Produs cu id {item_id} nu a fost găsit.")
 
     # Scriem datele actualizate înapoi în fisier
-    with open('stockdata.json', 'w') as f:
+    with open('Online_Store/stockdata.json', 'w') as f:
         json.dump(data, f, indent=2)
 
     print(f"Stoc actualizat pentru produsul cu id {item_id} la {new_stock}.")
