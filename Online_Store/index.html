@@ -1,23 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
-    <!--CSS LINK-->
-    <link rel="stylesheet" href="style.css">
-    <!-- Box Icon-->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <meta charset="utf-8">
+  <title>site_practica</title>
+  <link href="Untitled-2.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-    <!--HEADER-->
-    <header>
-        <!--Nav-->
-        <div class="nav containe">
-            <a href="#" class="logo">Ecommerce</a>
-            <!--Carti Icon-->
-            <i class='bx bx-cart' id="cart-icon"></i>
-        </div>
-    </header>
+  <!-- Container pentru iconița de coș și pop-up-ul coșului -->
+  <div class="cart-container">
+    <span id="cart-icon">🛒</span>
+    <div id="cart-popup">
+      <h3>Coș de cumpărături</h3>
+      <ul id="cart-items">
+        <!-- Aici adaugi dinamic produsele și cantitățile cel putin asa am gasit eu cand am cautat -->
+      </ul>
+      <div id="cart-total">Total: 0 RON</div>
+      <button id="checkout-btn">Dă comanda</button>
+    </div>
+  </div>
+
+  <!-- Titlul paginii -->
+  <h1 class="site-title">Shop</h1>
+
+  <!-- Zona cu produsele -->
+  <div class="product-container">
+    <!-- Produs 1 -->
+    <div class="product-item" data-id="1" data-name="Produs 1" data-price="20">
+      <img src="fotografii/ChatGPT Image 6 iun. 2025, 14_44_38.png" alt="Cub Rosu" class="product-image">
+      <p class="product-name">Cub Rosu</p>
+      <p class="product-price">20 RON</p>
+      <p class="product-stock">Stoc: <span id="stock-1">0</span></p>
+      <button class="add-to-cart" data-id="1">Adaugă în coș</button>
+    </div>
+
+    <!-- Produs 2 -->
+    <div class="product-item" data-id="2" data-name="Produs 2" data-price="20">
+      <img src="fotografii/ChatGPT Image 6 iun. 2025, 14_45_11.png" alt="Produs 2" class="product-image">
+      <p class="product-name">Cub Verde</p>
+      <p class="product-price">20 RON</p>
+      <p class="product-stock">Stoc: <span id="stock-2">0</span></p>
+      <button class="add-to-cart" data-id="2">Adaugă în coș</button>
+    </div>
+
+    <!-- Produs 3 -->
+    <div class="product-item" data-id="3" data-name="Produs 3" data-price="20">
+      <img src="fotografii/ChatGPT Image 6 iun. 2025, 14_46_20.png" alt="Produs 3" class="product-image">
+      <p class="product-name">Cub Galben</p>
+      <p class="product-price">20 RON</p>
+      <p class="product-stock">Stoc: <span id="stock-3">0</span></p>
+      <button class="add-to-cart" data-id="3">Adaugă în coș</button>
+    </div>
+
+    <!-- Produs 4 -->
+    <div class="product-item" data-id="4" data-name="Produs 4" data-price="20">
+      <img src="fotografii/albastru.png" alt="Produs 4" class="product-image">
+      <p class="product-name">Cub Albastru</p>
+      <p class="product-price">20 RON</p>
+      <p class="product-stock">Stoc: <span id="stock-4">0</span></p>
+      <button class="add-to-cart" data-id="4">Adaugă în coș</button>
+    </div>
+
+    <!-- Produs 5 -->
+    <div class="product-item" data-id="5" data-name="Produs 5" data-price="20">
+      <img src="fotografii/portocaliu.png" alt="Produs 5" class="product-image">
+      <p class="product-name">Cub Portocaliu</p>
+      <p class="product-price">20 RON</p>
+      <p class="product-stock">Stoc: <span id="stock-5">0</span></p>
+      <button class="add-to-cart" data-id="5">Adaugă în coș</button>
+    </div>
+  </div>
 </body>
 </html>
+<script type="text/javascript" src="Untitled-3.js"></script>
