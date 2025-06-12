@@ -16,10 +16,13 @@ Servo gripper;
 char culoare = ' ';
 bool motor_sel = true;
 int done = 1;
+int s=0;
 
 const int M1_PIN_DIR = 7;
 const int M2_PIN_DIR = 4;
 const int M3_PIN_DIR = 2;
+
+bool motor_set = true;
 
 void setup() {
 
@@ -42,9 +45,6 @@ void setup() {
   Braccio.begin();
   delay(500);
 
-  pinMode(M1_PIN_DIR, OUTPUT);
-  pinMode(M2_PIN_DIR, OUTPUT);
-  pinMode(M3_PIN_DIR, OUTPUT); 
 }
 
 void loop() {
@@ -58,12 +58,18 @@ void loop() {
     //delay(10000);
 
     while (central.connected()) {
-       Serial.print (base.read());
-      if(done == 1){
+      
+      if(motor_set == true && s == 6){
+        pinMode(M1_PIN_DIR, OUTPUT);
+        pinMode(M2_PIN_DIR, OUTPUT);
+        pinMode(M3_PIN_DIR, OUTPUT); 
+        motor_set = false;
+      }
+      if(done == 1 && motor_set == false){
         if(motor_sel == false) {
         //Run MOT2
         analogWrite(M2_PIN_DIR, 50);
-        delay(1500);
+        delay(1000);
         //Stop MOT2
         analogWrite(M2_PIN_DIR, 0);
         delay(100);
@@ -85,7 +91,6 @@ void loop() {
         delay(100);
       }
        
-
       if (rxCharacteristic.written()) {
         
         const uint8_t* data = rxCharacteristic.value();
@@ -101,6 +106,8 @@ void loop() {
         delay(1000);
         Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
         delay(1000);
+        Braccio.ServoMovement(100, 60, 95, 60, 105, 170, 70);
+        delay(500);
         Braccio.ServoMovement(100, 125, 140, 140, 100, 170, 70);
         delay(500);
         Braccio.ServoMovement(100, 125, 140, 140, 100, 170, 10);
@@ -113,6 +120,8 @@ void loop() {
         delay(1000);
         Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
         delay(1000);
+        Braccio.ServoMovement(100, 60, 95, 60, 105, 170, 70);
+        delay(500);
         Braccio.ServoMovement(100, 110, 140, 120, 175, 170, 70);
         delay(500);
         Braccio.ServoMovement(100, 110, 140, 120, 175, 170, 10);
@@ -125,6 +134,8 @@ void loop() {
         delay(1000);
         Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
         delay(1000);
+        Braccio.ServoMovement(100, 60, 95, 60, 105, 170, 70);
+        delay(500);
         Braccio.ServoMovement(100, 83, 130, 140, 180, 170, 70);
         delay(500);
         Braccio.ServoMovement(100, 83, 130, 140, 180, 170, 10);
@@ -137,6 +148,8 @@ void loop() {
         delay(1000);
         Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
         delay(1000);
+        Braccio.ServoMovement(100, 60, 95, 60, 105, 170, 70);
+        delay(500);
         Braccio.ServoMovement(100, 62, 140, 120, 175, 170, 70);
         delay(500);
         Braccio.ServoMovement(100, 62, 140, 120, 175, 170, 10);
@@ -149,6 +162,8 @@ void loop() {
         delay(1000);
         Braccio.ServoMovement(100, 60, 45, 10, 125, 170, 70);
         delay(1000);
+        Braccio.ServoMovement(100, 60, 95, 60, 105, 170, 70);
+        delay(500);
         Braccio.ServoMovement(100, 45, 140, 120, 165, 170, 70);
         delay(500);
         Braccio.ServoMovement(100, 45, 140, 120, 165, 170, 10);
@@ -158,10 +173,15 @@ void loop() {
         done = 1;
     }
 
-        Serial.print(done);
         motor_sel = !motor_sel;
         BLE.central();
       }
+        if(s<6){
+        s++;
+        Serial.print(s); 
+        delay(3000);
+      }
+      
     }
 
     Serial.println("Disconnected.");
