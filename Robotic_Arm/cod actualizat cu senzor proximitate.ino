@@ -108,7 +108,7 @@ void loop() {
         
       if (culoare == 'R') {
         do{
-        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 10);
+        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 10); //PRINDERE
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -119,7 +119,7 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while(distance<10 || distance>11);
+        } while(distance<8.8 || distance>10);
         delay(1000);
         Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 70);
         delay(1000);
@@ -127,7 +127,7 @@ void loop() {
         delay(500);
 
         do{
-        Braccio.ServoMovement(40, 125, 140, 140, 100, 170, 70);
+        Braccio.ServoMovement(40, 130, 140, 100, 160, 170, 70); //CULOARE 1
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -138,16 +138,16 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while(distance<15.8 || distance>17);
+        } while(distance<15.5 || distance>17);
         delay(500);
-        Braccio.ServoMovement(40, 125, 140, 140, 100, 170, 10);
+        Braccio.ServoMovement(40, 130, 140, 100, 160, 170, 10);;
         delay(500);
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
       } else if (culoare == 'G') {
         do{
-        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 10);
+        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 10); //PRINDERE
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -158,14 +158,14 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while(distance<10 || distance>11);
+        } while(distance<8.8 || distance>10);
         delay(1000);
         Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
         do{
-        Braccio.ServoMovement(40, 110, 140, 120, 175, 170, 70);
+        Braccio.ServoMovement(40, 110, 120, 120, 175, 170, 70); //CULOARE 2
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -176,16 +176,16 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<14 || distance>15.5);
+        } while (distance<13.8 || distance>14.7);
         delay(500);
-        Braccio.ServoMovement(40, 110, 140, 120, 175, 170, 10);
+        Braccio.ServoMovement(40, 110, 120, 120, 175, 170, 10);
         delay(500);
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
       } else if (culoare == 'B') {
         do{
-        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 0);
+        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 0); //PRINDERE
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -196,14 +196,14 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<10 || distance>11);
+        } while (distance<8.8 || distance>10);
         delay(1000);
         Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
         do{
-        Braccio.ServoMovement(40, 90, 130, 140, 180, 170, 70);
+        Braccio.ServoMovement(40, 85, 120, 120, 180, 170, 70); //CULOARE 3
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -214,16 +214,16 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while(distance<11 || distance>12.2);
+        } while(distance<10.5 || distance>12.5);
         delay(500);
-        Braccio.ServoMovement(40, 90, 130, 140, 180, 170, 10);
+        Braccio.ServoMovement(40, 85, 120, 120, 180, 170, 10);
         delay(500);
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
       } else if (culoare == 'Y') {
         do{
-        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 10);
+        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 10); //PRINDERE
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -234,14 +234,14 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<10 || distance>11);
+        } while (distance<8.8 || distance>10);
         delay(1000);
         Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
         do{
-        Braccio.ServoMovement(40, 70, 140, 120, 175, 170, 70);
+        Braccio.ServoMovement(40, 60, 120, 120, 175, 170, 70); //CULOARE 4
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -252,16 +252,16 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<8.7 || distance>9.5);
+        } while (distance<8.38 || distance>9.95);
         delay(500);
-        Braccio.ServoMovement(40, 70, 140, 120, 175, 170, 10);
+        Braccio.ServoMovement(40, 60, 120, 120, 175, 170, 10);
         delay(500);
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
       } else if (culoare == 'O') {
         do{
-        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 10);
+        Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 10); //PRINDERE
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -272,14 +272,14 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<10 || distance>11);
+        } while (distance<8.8 || distance>10);
         delay(1000);
         Braccio.ServoMovement(40, 60, 45, 10, 125, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
         do{
-        Braccio.ServoMovement(40, 30, 140, 120, 165, 170, 70);
+        Braccio.ServoMovement(40, 40, 140, 110, 150, 170, 70); //CULOARE 5
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -290,9 +290,9 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<6.5 || distance>8);
+        } while (distance<6.7 || distance>7.8);
         delay(500);
-        Braccio.ServoMovement(40, 30, 140, 120, 165, 170, 10);
+        Braccio.ServoMovement(40, 40, 140, 110, 150, 170, 10);
         delay(500);
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
