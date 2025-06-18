@@ -2,6 +2,13 @@
 #include <Servo.h>
 #include <Wire.h>
 #include <Braccio.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 BLEService customService("180C");
 BLECharacteristic rxCharacteristic("2A56", BLEWrite, 20);
@@ -36,7 +43,10 @@ void setup() {
     Serial.println("Failed to start BLE!");
     while (1);
   }
-
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("Ecranul OLED nu a fost detectat."));
+    while (true); // Oprește execuția
+  }
   BLE.setLocalName("ArduinoR4BLE");
   BLE.setAdvertisedService(customService);
   customService.addCharacteristic(rxCharacteristic);
@@ -107,6 +117,12 @@ void loop() {
         culoare = message;
         
       if (culoare == 'R') {
+        display.clearDisplay();               
+        display.setTextSize(2);               
+        display.setTextColor(SSD1306_WHITE);  
+        display.setCursor(0, 0);              
+        display.println("RED");          
+        display.display();   
         do{
         Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 10); //PRINDERE
         delay(2000);
@@ -148,6 +164,12 @@ void loop() {
         delay(500);
         done = 1;
       } else if (culoare == 'G') {
+        display.clearDisplay();               
+        display.setTextSize(2);               
+        display.setTextColor(SSD1306_WHITE);  
+        display.setCursor(0, 0);              
+        display.println("GREEN");          
+        display.display(); 
         do{
         Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 10); //PRINDERE
         delay(2000);
@@ -189,6 +211,12 @@ void loop() {
         delay(500);
         done = 1;
       } else if (culoare == 'B') {
+        display.clearDisplay();               
+        display.setTextSize(2);               
+        display.setTextColor(SSD1306_WHITE);  
+        display.setCursor(0, 0);              
+        display.println("BLUE");          
+        display.display(); 
         do{
         Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 0); //PRINDERE
         delay(2000);
@@ -230,6 +258,12 @@ void loop() {
         delay(500);
         done = 1;
       } else if (culoare == 'Y') {
+        display.clearDisplay();               
+        display.setTextSize(2);               
+        display.setTextColor(SSD1306_WHITE);  
+        display.setCursor(0, 0);              
+        display.println("YELLOW");          
+        display.display(); 
         do{
         Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 10); //PRINDERE
         delay(2000);
@@ -272,6 +306,12 @@ void loop() {
         delay(500);
         done = 1;
       } else if (culoare == 'O') {
+        display.clearDisplay();               
+        display.setTextSize(2);               
+        display.setTextColor(SSD1306_WHITE);  
+        display.setCursor(0, 0);              
+        display.println("ORANGE");          
+        display.display(); 
         do{
         Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 10); //PRINDERE
         delay(2000);
