@@ -140,7 +140,7 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while(distance<15.5 || distance>17);
+        } while(distance<14.8 || distance>17);
         delay(500);
         Braccio.ServoMovement(40, 130, 140, 100, 160, 170, 10);;
         delay(500);
@@ -181,7 +181,7 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<13.8 || distance>14.7);
+        } while (distance<12.6 || distance>14.7);
         delay(500);
         Braccio.ServoMovement(40, 110, 120, 120, 175, 170, 10);
         delay(500);
@@ -264,7 +264,7 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<8.38 || distance>9.95);
+        } while (distance<8 || distance>9.95);
         delay(500);
         Braccio.ServoMovement(40, 60, 120, 120, 175, 170, 10);
         delay(500);
