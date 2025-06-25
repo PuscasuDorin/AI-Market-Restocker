@@ -24,10 +24,13 @@ char culoare = ' ';
 bool motor_sel = true;
 int done = 1;
 int s=0;
+int m_reverse = 0;
 
 const int M1_PIN_DIR = 7;
 const int M2_PIN_DIR = 4;
 const int M3_PIN_DIR = 2;
+const int M2_PIN_REV_DIR = 8;
+const int M3_PIN_REV_DIR = 13;
 const int trigPin = A0;
 const int echoPin = A1;
 float duration, distance;
@@ -76,26 +79,43 @@ void loop() {
         pinMode(M1_PIN_DIR, OUTPUT);
         pinMode(M2_PIN_DIR, OUTPUT);
         pinMode(M3_PIN_DIR, OUTPUT); 
+        pinMode(M2_PIN_REV_DIR, OUTPUT);
+        pinMode(M3_PIN_REV_DIR, OUTPUT); 
+
         pinMode(trigPin, OUTPUT);
         pinMode(echoPin, INPUT);
         motor_set = false;
       }
       if(done == 1 && motor_set == false){
+        if(m_reverse == 4){
+          analogWrite(M2_PIN_REV_DIR, 100);
+          delay(500);
+          analogWrite(M2_PIN_REV_DIR, 0);
+          delay(100);
+          analogWrite(M3_PIN_REV_DIR, 100);
+          delay(500);
+          analogWrite(M3_PIN_REV_DIR, 0);
+          delay(100);
+          m_reverse = 0;
+          delay(5000);
+        }
         if(motor_sel == false) {
         //Run MOT2
         analogWrite(M2_PIN_DIR, 50);
-        delay(1000);
+        delay(600);
         //Stop MOT2
         analogWrite(M2_PIN_DIR, 0);
         delay(100);
+        m_reverse++;
         }
         if(motor_sel == true ) {
           //Run MOT3
           analogWrite(M3_PIN_DIR, 50);
-          delay(1000); 
+          delay(600); 
           //Stop MOT3
           analogWrite(M3_PIN_DIR, 0);
           delay(100);
+          m_reverse++;
         }
         //Run MOT1
         digitalWrite(M1_PIN_DIR, HIGH);
