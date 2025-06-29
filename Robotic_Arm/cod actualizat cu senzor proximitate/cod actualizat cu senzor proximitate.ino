@@ -33,6 +33,8 @@ const int M2_PIN_REV_DIR = 8;
 const int M3_PIN_REV_DIR = 13;
 const int trigPin = A0;
 const int echoPin = A1;
+const int pinLedRosu = A3;
+const int pinLedVerde = A4;
 float duration, distance;
 bool motor_set = true;
 
@@ -81,6 +83,8 @@ void loop() {
         pinMode(M3_PIN_DIR, OUTPUT); 
         pinMode(M2_PIN_REV_DIR, OUTPUT);
         pinMode(M3_PIN_REV_DIR, OUTPUT); 
+        pinMode(pinLedRosu, OUTPUT);
+        pinMode(pinLedVerde, OUTPUT);
 
         pinMode(trigPin, OUTPUT);
         pinMode(echoPin, INPUT);
@@ -101,29 +105,35 @@ void loop() {
         }
         if(motor_sel == false) {
         //Run MOT2
+        digitalWrite(pinLedRosu, HIGH);
         analogWrite(M2_PIN_DIR, 50);
         delay(600);
         //Stop MOT2
         analogWrite(M2_PIN_DIR, 0);
         delay(100);
+        digitalWrite(pinLedRosu, LOW);
         m_reverse++;
         }
         if(motor_sel == true ) {
           //Run MOT3
+          digitalWrite(pinLedRosu, HIGH);
           analogWrite(M3_PIN_DIR, 50);
           delay(600); 
           //Stop MOT3
           analogWrite(M3_PIN_DIR, 0);
           delay(100);
+          digitalWrite(pinLedRosu, LOW);
           m_reverse++;
         }
         //Run MOT1
+        digitalWrite(pinLedRosu, HIGH);
         digitalWrite(M1_PIN_DIR, HIGH);
         delay(5700); 
         done = 0;
         //Stop MOT1
         digitalWrite(M1_PIN_DIR, LOW);
         delay(100);
+        digitalWrite(pinLedRosu, LOW);
       }
        
       if (rxCharacteristic.written()) {
@@ -137,6 +147,7 @@ void loop() {
         culoare = message;
         
       if (culoare == 'R') {
+        digitalWrite(pinLedVerde, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -144,7 +155,9 @@ void loop() {
         display.println("RED");          
         display.display();   
         do{
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        delay(100);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -155,9 +168,9 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while(distance<8.8 || distance>10);
+        } while(distance<10 || distance>11);
         delay(1000);
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 70);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
@@ -183,7 +196,9 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
+        digitalWrite(pinLedVerde, LOW);
       } else if (culoare == 'G') {
+        digitalWrite(pinLedVerde, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -191,7 +206,9 @@ void loop() {
         display.println("GREEN");          
         display.display(); 
         do{
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        delay(100);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -202,9 +219,9 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while(distance<8.8 || distance>10);
+        } while(distance<10 || distance>11);
         delay(1000);
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 70);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
@@ -230,7 +247,9 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
+        digitalWrite(pinLedVerde, LOW);
       } else if (culoare == 'B') {
+        digitalWrite(pinLedVerde, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -238,7 +257,9 @@ void loop() {
         display.println("BLUE");          
         display.display(); 
         do{
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 0); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        delay(100);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -249,9 +270,9 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<8.8 || distance>10);
+        } while (distance<10 || distance>11);
         delay(1000);
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 70);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
@@ -277,7 +298,9 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
+        digitalWrite(pinLedVerde, LOW);
       } else if (culoare == 'Y') {
+        digitalWrite(pinLedVerde, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -285,7 +308,9 @@ void loop() {
         display.println("YELLOW");          
         display.display(); 
         do{
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        delay(100);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -296,9 +321,9 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<8.8 || distance>10);
+        } while (distance<10 || distance>11);
         delay(1000);
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 70);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
@@ -325,7 +350,9 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
+        digitalWrite(pinLedVerde, LOW);
       } else if (culoare == 'O') {
+        digitalWrite(pinLedVerde, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -333,7 +360,9 @@ void loop() {
         display.println("ORANGE");          
         display.display(); 
         do{
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        delay(100);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -344,9 +373,9 @@ void loop() {
         duration = pulseIn(echoPin, HIGH);
         distance = (duration*.0343)/2;
         Serial.println(distance);
-        } while (distance<8.8 || distance>10);
+        } while (distance<10 || distance>11);
         delay(1000);
-        Braccio.ServoMovement(40, 65, 45, 10, 125, 170, 70);
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 70);
         delay(1000);
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
@@ -372,6 +401,7 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
+        digitalWrite(pinLedVerde, LOW);
     }
 
         motor_sel = !motor_sel;
