@@ -104,6 +104,7 @@ void loop() {
           delay(5000);
         }
         if(motor_sel == false) {
+        BLE.poll();
         //Run MOT2
         digitalWrite(pinLedRosu, HIGH);
         analogWrite(M2_PIN_DIR, 50);
@@ -115,6 +116,7 @@ void loop() {
         m_reverse++;
         }
         if(motor_sel == true ) {
+          BLE.poll();
           //Run MOT3
           digitalWrite(pinLedRosu, HIGH);
           analogWrite(M3_PIN_DIR, 50);
@@ -134,6 +136,7 @@ void loop() {
         digitalWrite(M1_PIN_DIR, LOW);
         delay(100);
         digitalWrite(pinLedRosu, LOW);
+        BLE.poll();
       }
        
       if (rxCharacteristic.written()) {
@@ -154,7 +157,7 @@ void loop() {
         display.setCursor(0, 0);              
         display.println("RED");          
         display.display();   
-        do{
+        do{ BLE.poll();
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
@@ -205,7 +208,7 @@ void loop() {
         display.setCursor(0, 0);              
         display.println("GREEN");          
         display.display(); 
-        do{
+        do{ BLE.poll();
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
@@ -256,7 +259,7 @@ void loop() {
         display.setCursor(0, 0);              
         display.println("BLUE");          
         display.display(); 
-        do{
+        do{ BLE.poll();
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
@@ -307,7 +310,7 @@ void loop() {
         display.setCursor(0, 0);              
         display.println("YELLOW");          
         display.display(); 
-        do{
+        do{ BLE.poll();
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
@@ -359,7 +362,7 @@ void loop() {
         display.setCursor(0, 0);              
         display.println("ORANGE");          
         display.display(); 
-        do{
+        do{ BLE.poll();
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
@@ -401,6 +404,7 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
+        BLE.poll();
         digitalWrite(pinLedVerde, LOW);
     }
 
