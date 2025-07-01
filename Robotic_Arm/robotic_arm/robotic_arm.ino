@@ -20,7 +20,7 @@ Servo wrist_rot;
 Servo wrist_ver;
 Servo gripper;
 
-char culoare = ' ';
+char color = ' ';
 bool motor_sel = true;
 int done = 1;
 int s=0;
@@ -33,8 +33,8 @@ const int M2_PIN_REV_DIR = 8;
 const int M3_PIN_REV_DIR = 13;
 const int trigPin = A0;
 const int echoPin = A1;
-const int pinLedRosu = A3;
-const int pinLedVerde = A4;
+const int redLED = A3;
+const int greenLED = A4;
 float duration, distance;
 bool motor_set = true;
 
@@ -49,8 +49,8 @@ void setup() {
     while (1);
   }
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println(F("Ecranul OLED nu a fost detectat."));
-    while (true); // Oprește execuția
+    Serial.println(F("OLED screen was not detected."));
+    while (true); // Stop execution
   }
   BLE.setLocalName("ArduinoR4BLE");
   BLE.setAdvertisedService(customService);
@@ -73,8 +73,6 @@ void loop() {
     Serial.println(central.address());
 
 
-    //delay(10000);
-
     while (central.connected()) {
       
       if(motor_set == true && s == 6){
@@ -83,8 +81,8 @@ void loop() {
         pinMode(M3_PIN_DIR, OUTPUT); 
         pinMode(M2_PIN_REV_DIR, OUTPUT);
         pinMode(M3_PIN_REV_DIR, OUTPUT); 
-        pinMode(pinLedRosu, OUTPUT);
-        pinMode(pinLedVerde, OUTPUT);
+        pinMode(redLED, OUTPUT);
+        pinMode(greenLED, OUTPUT);
 
         pinMode(trigPin, OUTPUT);
         pinMode(echoPin, INPUT);
@@ -106,36 +104,36 @@ void loop() {
         if(motor_sel == false) {
         BLE.poll();
         //Run MOT2
-        digitalWrite(pinLedRosu, HIGH);
+        digitalWrite(redLED, HIGH);
         analogWrite(M2_PIN_DIR, 50);
         delay(600);
         //Stop MOT2
         analogWrite(M2_PIN_DIR, 0);
         delay(100);
-        digitalWrite(pinLedRosu, LOW);
+        digitalWrite(redLED, LOW);
         m_reverse++;
         }
         if(motor_sel == true ) {
           BLE.poll();
           //Run MOT3
-          digitalWrite(pinLedRosu, HIGH);
+          digitalWrite(redLED, HIGH);
           analogWrite(M3_PIN_DIR, 50);
           delay(600); 
           //Stop MOT3
           analogWrite(M3_PIN_DIR, 0);
           delay(100);
-          digitalWrite(pinLedRosu, LOW);
+          digitalWrite(redLED, LOW);
           m_reverse++;
         }
         //Run MOT1
-        digitalWrite(pinLedRosu, HIGH);
+        digitalWrite(redLED, HIGH);
         digitalWrite(M1_PIN_DIR, HIGH);
         delay(5700); 
         done = 0;
         //Stop MOT1
         digitalWrite(M1_PIN_DIR, LOW);
         delay(100);
-        digitalWrite(pinLedRosu, LOW);
+        digitalWrite(redLED, LOW);
         BLE.poll();
       }
        
@@ -147,10 +145,10 @@ void loop() {
         message = (char)data[0];
         Serial.print("Received via BLE: ");
         Serial.println(message);
-        culoare = message;
+        color = message;
         
-      if (culoare == 'R') {
-        digitalWrite(pinLedVerde, HIGH);
+      if (color == 'R') {
+        digitalWrite(greenLED, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -158,7 +156,7 @@ void loop() {
         display.println("RED");          
         display.display();   
         do{ BLE.poll();
-        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //CATCH
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
@@ -178,10 +176,10 @@ void loop() {
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
         
-        Braccio.ServoMovement(40, 130, 140, 100, 160, 170, 70); //CULOARE 1
+        Braccio.ServoMovement(40, 130, 140, 100, 160, 170, 70); //color 1
         delay(100);
         do{
-        Braccio.ServoMovement(40, 130, 140, 100, 160, 170, 70); //CULOARE 1
+        Braccio.ServoMovement(40, 130, 140, 100, 160, 170, 70); //color 1
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -199,9 +197,9 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
-        digitalWrite(pinLedVerde, LOW);
-      } else if (culoare == 'G') {
-        digitalWrite(pinLedVerde, HIGH);
+        digitalWrite(greenLED, LOW);
+      } else if (color == 'G') {
+        digitalWrite(greenLED, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -209,7 +207,7 @@ void loop() {
         display.println("GREEN");          
         display.display(); 
         do{ BLE.poll();
-        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //catch
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
@@ -229,10 +227,10 @@ void loop() {
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
         
-        Braccio.ServoMovement(40, 110, 120, 120, 175, 170, 70); //CULOARE 2
+        Braccio.ServoMovement(40, 110, 120, 120, 175, 170, 70); //color 2
         delay(100);
         do{
-        Braccio.ServoMovement(40, 110, 120, 120, 175, 170, 70); //CULOARE 2
+        Braccio.ServoMovement(40, 110, 120, 120, 175, 170, 70); //color 2
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -250,9 +248,9 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
-        digitalWrite(pinLedVerde, LOW);
-      } else if (culoare == 'B') {
-        digitalWrite(pinLedVerde, HIGH);
+        digitalWrite(greenLED, LOW);
+      } else if (color == 'B') {
+        digitalWrite(greenLED, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -260,7 +258,7 @@ void loop() {
         display.println("BLUE");          
         display.display(); 
         do{ BLE.poll();
-        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //catch
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
@@ -280,10 +278,10 @@ void loop() {
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
 
-        Braccio.ServoMovement(40, 85, 120, 120, 180, 170, 70); //CULOARE 3
+        Braccio.ServoMovement(40, 85, 120, 120, 180, 170, 70); //color 3
         delay(100);
         do{
-        Braccio.ServoMovement(40, 85, 120, 120, 180, 170, 70); //CULOARE 3
+        Braccio.ServoMovement(40, 85, 120, 120, 180, 170, 70); //color 3
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -301,9 +299,9 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
-        digitalWrite(pinLedVerde, LOW);
-      } else if (culoare == 'Y') {
-        digitalWrite(pinLedVerde, HIGH);
+        digitalWrite(greenLED, LOW);
+      } else if (color == 'Y') {
+        digitalWrite(greenLED, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -311,7 +309,7 @@ void loop() {
         display.println("YELLOW");          
         display.display(); 
         do{ BLE.poll();
-        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //catch
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
@@ -332,10 +330,10 @@ void loop() {
         delay(500);
 
 
-        Braccio.ServoMovement(40, 60, 120, 120, 175, 170, 70); //CULOARE 4
+        Braccio.ServoMovement(40, 60, 120, 120, 175, 170, 70); //color 4
         delay(100);
         do{
-        Braccio.ServoMovement(40, 60, 120, 120, 175, 170, 70); //CULOARE 4
+        Braccio.ServoMovement(40, 60, 120, 120, 175, 170, 70); //color 4
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -353,9 +351,9 @@ void loop() {
         Braccio.ServoMovement(40, 0, 45, 180, 0, 90, 10);
         delay(500);
         done = 1;
-        digitalWrite(pinLedVerde, LOW);
-      } else if (culoare == 'O') {
-        digitalWrite(pinLedVerde, HIGH);
+        digitalWrite(greenLED, LOW);
+      } else if (color == 'O') {
+        digitalWrite(greenLED, HIGH);
         display.clearDisplay();               
         display.setTextSize(2);               
         display.setTextColor(SSD1306_WHITE);  
@@ -363,7 +361,7 @@ void loop() {
         display.println("ORANGE");          
         display.display(); 
         do{ BLE.poll();
-        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //PRINDERE
+        Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10); //catch
         delay(100);
         Braccio.ServoMovement(40, 80, 45, 0, 145, 170, 10);
         delay(2000);
@@ -383,10 +381,10 @@ void loop() {
         Braccio.ServoMovement(40, 60, 95, 60, 105, 170, 70);
         delay(500);
 
-        Braccio.ServoMovement(40, 40, 140, 110, 150, 170, 70); //CULOARE 5
+        Braccio.ServoMovement(40, 40, 140, 110, 150, 170, 70); //color 5
         delay(100);
         do{
-        Braccio.ServoMovement(40, 40, 140, 110, 150, 170, 70); //CULOARE 5
+        Braccio.ServoMovement(40, 40, 140, 110, 150, 170, 70); //color 5
         delay(2000);
         digitalWrite(trigPin, LOW);
         delayMicroseconds(2);
@@ -405,7 +403,7 @@ void loop() {
         delay(500);
         done = 1;
         BLE.poll();
-        digitalWrite(pinLedVerde, LOW);
+        digitalWrite(greenLED, LOW);
     }
 
         motor_sel = !motor_sel;

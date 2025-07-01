@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     })
-    .catch(error => console.error('Eroare la încărcarea stockdata.json:', error));
+    .catch(error => console.error('Error loading stockdata.json:', error));
 
   cartIcon.addEventListener('click', () => {
     cartPopup.style.display = (cartPopup.style.display === 'block') ? 'none' : 'block';
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const removeBtn = document.createElement('button');
       removeBtn.textContent = '×';
-      removeBtn.title = 'Șterge un produs';
+      removeBtn.title = 'Remove a product';
       removeBtn.classList.add('remove-from-cart');
       removeBtn.dataset.id = id;
       li.appendChild(removeBtn);
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const productDiv = e.currentTarget.closest('.product-item');
     const id         = productDiv.getAttribute('data-id');
     const name       = productDiv.getAttribute('data-name');
-    const price      = parseFloat(productDiv.getAttribute('data-price'));  // preț luat din HTML, nu din JSON
+    const price      = parseFloat(productDiv.getAttribute('data-price'));
     const stockSpan  = document.getElementById("stock-" + id);
 
     if(parseInt(stockSpan.textContent) > 0 ){

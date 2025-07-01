@@ -25,13 +25,13 @@ def update_stock(item_id, new_stock):
             item['stock'] = int(new_stock)
             break
     else:
-        print(f"Produs cu id {item_id} nu a fost găsit.")
+        print(f"The product with id {item_id} was not found.")
 
     # Write data to database
     with open('Online_Store/stockdata.json', 'w') as f:
         json.dump(data, f, indent=2)
 
-    print(f"Stoc actualizat pentru produsul cu id {item_id} la {new_stock}.")
+    print(f"Stock updated for the product with id {item_id} to {new_stock}.")
 
 # Camera setup
 picam2 = Picamera2()

@@ -2,17 +2,17 @@
   {
     "id": 1,
     "name": "Cub Rosu",
-    "stock": 2
+    "stock": 0
   },
   {
     "id": 2,
     "name": "Cub Albastru",
-    "stock": 1
+    "stock": 0
   },
   {
     "id": 3,
     "name": "Cub Verde",
-    "stock": 3
+    "stock": 0
   },
   {
     "id": 4,
@@ -22,6 +22,6 @@
   {
     "id": 5,
     "name": "Cub Galben",
-    "stock": 1
+    "stock": 0
   }
 ]
