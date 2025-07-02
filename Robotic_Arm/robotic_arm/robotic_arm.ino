@@ -37,32 +37,36 @@ const int redLED = A3;
 const int greenLED = A4;
 float duration, distance;
 bool motor_set = true;
+const int startButton = A5;
+int startButtonState = 0;
 
 void setup() {
-  
+  pinMode(startButton, INPUT);
+  startButtonState = digitalRead(startButton);
 
-  Serial.begin(9600);
-  while (!Serial);
+  if(startButtonState == HIGH){
+    Serial.begin(9600);
+    while (!Serial);
 
-  if (!BLE.begin()) {
-    Serial.println("Failed to start BLE!");
-    while (1);
+    if (!BLE.begin()) {
+      Serial.println("Failed to start BLE!");
+      while (1);
+    }
+    if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+      Serial.println(F("OLED screen was not detected."));
+      while (true); // Stop execution
+    }
+    BLE.setLocalName("ArduinoR4BLE");
+    BLE.setAdvertisedService(customService);
+    customService.addCharacteristic(rxCharacteristic);
+    BLE.addService(customService);
+
+    BLE.advertise();
+    Serial.println("BLE service is advertising...");
+
+    Braccio.begin();
+    delay(500);
   }
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println(F("OLED screen was not detected."));
-    while (true); // Stop execution
-  }
-  BLE.setLocalName("ArduinoR4BLE");
-  BLE.setAdvertisedService(customService);
-  customService.addCharacteristic(rxCharacteristic);
-  BLE.addService(customService);
-
-  BLE.advertise();
-  Serial.println("BLE service is advertising...");
-
-  Braccio.begin();
-  delay(500);
-
 }
 
 void loop() {
@@ -99,7 +103,10 @@ void loop() {
           analogWrite(M3_PIN_REV_DIR, 0);
           delay(100);
           m_reverse = 0;
-          delay(5000);
+          //delay(5000);
+          while(startButtonState == LOW){
+            BLE.poll();
+          }
         }
         if(motor_sel == false) {
         BLE.poll();
