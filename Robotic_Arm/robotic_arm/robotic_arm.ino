@@ -67,6 +67,9 @@ void setup() {
     Braccio.begin();
     delay(500);
   }
+  else{
+  setup();
+  }
 }
 
 void loop() {
@@ -104,7 +107,9 @@ void loop() {
           delay(100);
           m_reverse = 0;
           //delay(5000);
+          startButtonState = digitalRead(startButton);
           while(startButtonState == LOW){
+            startButtonState = digitalRead(startButton);
             BLE.poll();
             delay(500);
           }
