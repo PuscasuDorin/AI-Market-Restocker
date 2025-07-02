@@ -44,9 +44,7 @@ void setup() {
   pinMode(startButton, INPUT);
   startButtonState = digitalRead(startButton);
 
-  while(startButtonState == LOW){
-    startButtonState = digitalRead(startButton);\
-  }
+  if(startButtonState == LOW){
     Serial.begin(9600);
     while (!Serial);
 
@@ -68,6 +66,10 @@ void setup() {
 
     Braccio.begin();
     delay(500);
+  }
+  else{
+  setup();
+  }
 }
 
 void loop() {
@@ -106,7 +108,7 @@ void loop() {
           m_reverse = 0;
           //delay(5000);
           startButtonState = digitalRead(startButton);
-          while(startButtonState == LOW){
+          while(startButtonState == HIGH){
             startButtonState = digitalRead(startButton);
             BLE.poll();
             delay(500);
