@@ -44,7 +44,9 @@ void setup() {
   pinMode(startButton, INPUT);
   startButtonState = digitalRead(startButton);
 
-  if(startButtonState == HIGH){
+  while(startButtonState == LOW){
+    startButtonState = digitalRead(startButton);\
+  }
     Serial.begin(9600);
     while (!Serial);
 
@@ -66,10 +68,6 @@ void setup() {
 
     Braccio.begin();
     delay(500);
-  }
-  else{
-  setup();
-  }
 }
 
 void loop() {
