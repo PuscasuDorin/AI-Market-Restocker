@@ -106,6 +106,7 @@ void loop() {
           //delay(5000);
           while(startButtonState == LOW){
             BLE.poll();
+            delay(500);
           }
         }
         if(motor_sel == false) {
