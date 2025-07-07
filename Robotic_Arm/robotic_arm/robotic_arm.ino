@@ -39,6 +39,7 @@ float duration, distance;
 bool motor_set = true;
 const int startButton = A5;
 int startButtonState = 0;
+bool pi_is_set = false;
 
 void setup() {
   pinMode(startButton, INPUT);
@@ -81,8 +82,10 @@ void loop() {
 
 
     while (central.connected()) {
-      
-      if(motor_set == true && s == 6){
+      if(message == "1go1"){
+        pi_is_set = true;
+      }
+      if(motor_set == true && s == 6 && pi_is_set){
         pinMode(M1_PIN_DIR, OUTPUT);
         pinMode(M2_PIN_DIR, OUTPUT);
         pinMode(M3_PIN_DIR, OUTPUT); 
@@ -95,7 +98,7 @@ void loop() {
         pinMode(echoPin, INPUT);
         motor_set = false;
       }
-      if(done == 1 && motor_set == false){
+      if(done == 1 && motor_set == false && pi_is_set){
         if(m_reverse == 4){
           analogWrite(M2_PIN_REV_DIR, 100);
           delay(500);

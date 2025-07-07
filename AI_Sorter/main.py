@@ -162,6 +162,7 @@ while True:
     elif cmd == "1" and valid_ble:
         print("Device is connected")
     elif cmd == "2" and valid_ble:
+        characteristic.write(b'1go1', withResponse=False)
         print("Program is running...")
         running()
     elif cmd == "2" and not valid_ble:
