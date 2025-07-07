@@ -37,15 +37,17 @@ const int redLED = A3;
 const int greenLED = A4;
 float duration, distance;
 bool motor_set = true;
-const int startButton = A5;
-int startButtonState = 0;
+const int startButton = A2;
+int startButtonState = HIGH;
 bool pi_is_set = false;
 
 void setup() {
   pinMode(startButton, INPUT);
   startButtonState = digitalRead(startButton);
 
-  if(startButtonState == LOW){
+  while(startButtonState == HIGH){
+    startButtonState = digitalRead(startButton);
+  }
     Serial.begin(9600);
     while (!Serial);
 
@@ -64,13 +66,16 @@ void setup() {
 
     BLE.advertise();
     Serial.println("BLE service is advertising...");
+    display.clearDisplay();               
+    display.setTextSize(2);               
+    display.setTextColor(SSD1306_WHITE);  
+    display.setCursor(0, 0);              
+    display.println("CONECTARE");          
+    display.display(); 
+
 
     Braccio.begin();
     delay(500);
-  }
-  else{
-  setup();
-  }
 }
 
 void loop() {
@@ -79,13 +84,17 @@ void loop() {
     if (central) {
     Serial.print("Connected to central: ");
     Serial.println(central.address());
+    display.clearDisplay();               
+    display.setTextSize(2);               
+    display.setTextColor(SSD1306_WHITE);  
+    display.setCursor(0, 0);              
+    display.println("CONECTAT");          
+    display.display(); 
 
 
     while (central.connected()) {
-      if(message == "1go1"){
-        pi_is_set = true;
-      }
-      if(motor_set == true && s == 6 && pi_is_set){
+      
+      if(motor_set == true && s == 3){
         pinMode(M1_PIN_DIR, OUTPUT);
         pinMode(M2_PIN_DIR, OUTPUT);
         pinMode(M3_PIN_DIR, OUTPUT); 
@@ -98,7 +107,7 @@ void loop() {
         pinMode(echoPin, INPUT);
         motor_set = false;
       }
-      if(done == 1 && motor_set == false && pi_is_set){
+      if(done == 1 && motor_set == false){
         if(m_reverse == 4){
           analogWrite(M2_PIN_REV_DIR, 100);
           delay(500);
@@ -162,7 +171,9 @@ void loop() {
         Serial.print("Received via BLE: ");
         Serial.println(message);
         color = message;
-        
+      if (color == 'm'){
+        pi_is_set = true;
+      }  
       if (color == 'R') {
         digitalWrite(greenLED, HIGH);
         display.clearDisplay();               
@@ -425,10 +436,11 @@ void loop() {
         motor_sel = !motor_sel;
         BLE.central();
       }
-        if(s<6){
-        s++;
-        Serial.print(s); 
-        delay(3000);
+        if(s<3 && pi_is_set == true){
+          pi_is_set = false;
+          s++;
+          Serial.print(s); 
+          delay(3000);
       }
       
     }
