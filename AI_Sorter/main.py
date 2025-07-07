@@ -17,6 +17,7 @@ peripheral = None
 characteristic = None
 valid_ble = None
 notif_thread = None
+pi_is_set = False
 
 # Load YOLO model
 model = YOLO("AI_Sorter/my_model_ncnn_model")
@@ -77,13 +78,17 @@ def keep_alive():
         time.sleep(5)
 
 def running():
+    global pi_is_set
     while True:
 
         frame = picam2.capture_array()
         
         results = model(frame)
         annotated_frame = results[0].plot()
-
+        if pi_is_set:
+                message = 'm'
+                characteristic.write(message.encode(), withResponse=True)
+                pi_is_set = False
         # Dettection check
         if results[0].boxes is not None and results[0].boxes.cls is not None:
             classes = results[0].boxes.cls
@@ -162,7 +167,7 @@ while True:
     elif cmd == "1" and valid_ble:
         print("Device is connected")
     elif cmd == "2" and valid_ble:
-        characteristic.write(b'1go1', withResponse=False)
+        pi_is_set = True
         print("Program is running...")
         running()
     elif cmd == "2" and not valid_ble:
