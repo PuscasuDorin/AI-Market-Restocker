@@ -13,6 +13,8 @@ SERVICE_UUID = "180C"
 CHAR_UUID = "2A56"
 message = ""
 stock = [0, 0, 0, 0, 0]
+peripheral = None
+characteristic = None
 valid_ble = None
 notif_thread = None
 
@@ -47,13 +49,15 @@ def update_stock(item_id, new_stock):
 
 
 def connecting_to_device():
-    while True:
+    global peripheral, characteristic
+    while True:   
         try:
             print("Connecting...")
             peripheral = btle.Peripheral(DEVICE_MAC)
             service = peripheral.getServiceByUUID(SERVICE_UUID)
             characteristic = service.getCharacteristics(CHAR_UUID)[0]
             print("Connected")
+            threading.Thread(target=keep_alive, daemon=True).start()
             picam2.start()
             picam2.capture_array()
             break
@@ -62,10 +66,15 @@ def connecting_to_device():
             print(f"Bluetooth Connection Error: {e}")
             time.sleep(2)
 
-def ble_notification():
+def keep_alive():
+    global characteristic
     while True:
-        if peripheral.waitForNotifications(1.0):
-            pass
+        try:
+            characteristic.write(b'.', withResponse=False)
+        except Exception as e:
+            print("Lost connection:", e)
+            break
+        time.sleep(5)
 
 def running():
     while True:
@@ -139,10 +148,6 @@ def running():
 
 print("Type 'start' to start the program!")
 while True:
-    if valid_ble:
-        if notif_thread is None:
-            notif_thread = threading.Thread(target=ble_notification, daemon=True)
-            notif_thread.start()
     cmd = input(">>").strip().lower()
     if cmd == "start":
         print("Run the commands in the displayed order by typing the associated number in the console!")
